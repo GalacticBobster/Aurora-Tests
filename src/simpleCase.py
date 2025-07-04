@@ -1,8 +1,10 @@
 #This is a default case from Microsoft Aurora website
 from datetime import datetime
 
+import matplotlib.pyplot as plt
 import torch
 
+from aurora import Aurora, rollout
 from aurora import Batch, Metadata
 from aurora import AuroraSmallPretrained
 
@@ -24,6 +26,7 @@ model.load_checkpoint("microsoft/aurora", "aurora-0.25-small-pretrained.ckpt")
 
 model = model.to("cpu")
 with torch.inference_mode():
-    pred = model.forward(batch)
+    #pred = model.forward(batch)
+    preds = [pred for pred in rollout(model, batch, steps=2)]
 
 
